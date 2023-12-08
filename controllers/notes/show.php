@@ -6,11 +6,11 @@ use Core\Response;
 $config = require base_path("config.php");
 $db = new Database($config['database']);
 
-$id = $_GET['id'];
+$currentUserId = 1;
+
+
 
 $note = $db->query('select * from notes where id = :id', ['id' => $_GET['id']])->findOrFail();
-
-$currentUserId = 1;
 
 authorize($note['user_id'] === $currentUserId);
 
