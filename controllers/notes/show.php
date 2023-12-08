@@ -1,17 +1,18 @@
 <?php
 
 //connect to our MySQL database.
-$config = require "config.php";
+$config = require base_path("config.php");
 $db = new Database($config['database']);
-
-$heading = 'Single Note';
 
 $id = $_GET['id'];
 
 $note = $db->query('select * from notes where id = :id', ['id' => $_GET['id']])->findOrFail();
 
-$currentUserId = '1';
+$currentUserId = 1;
 
 authorize($note['user_id'] === $currentUserId);
 
-require "views/note.view.php";
+view("notes/show.view.php", [
+    'heading' => 'Note',
+    'note' => $note
+]);
