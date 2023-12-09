@@ -1,7 +1,9 @@
 <?php
 
 namespace Core;
+
 use PDO;
+
 class Database
 {
     public $connection;
@@ -31,7 +33,8 @@ class Database
         return $this->statement->fetch();
     }
 
-    public function findAll(){
+    public function findAll()
+    {
         return $this->statement->fetchAll();
     }
 
@@ -39,7 +42,7 @@ class Database
     {
         $result = $this->find();
 
-        if(! $result){
+        if (!$result) {
             abort();
         }
 
