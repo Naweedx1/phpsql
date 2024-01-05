@@ -1,13 +1,12 @@
 <?php
 
-use Core\Database;
 use Core\Response;
-//connect to our MySQL database.
-$config = require base_path("config.php");
-$db = new Database($config['database']);
+use Core\App;
+use Core\Database;
 
-$currentUserId = 1;
+$db = App::resolve(Database::class);
 
+$currentUserId = '1';
 
 
 $note = $db->query('select * from notes where id = :id', ['id' => $_GET['id']])->findOrFail();
