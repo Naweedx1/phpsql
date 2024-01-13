@@ -8,10 +8,8 @@ class LoginForm
 {
     protected $errors = [];
 
-    public function validate($email, $password)
+    public function __construct($attributes)
     {
-        $errors = [];
-
         if (!Validator::email($email)) {
             $errors['email'] = 'Please provide a valid email';
         }
@@ -19,8 +17,20 @@ class LoginForm
         if (!Validator::string($password)) {
             $errors['password'] = 'please provide a valid password!!';
         }
+    }
 
-        return empty($errors);
+    public function validate($attributes)
+    {
+        $instance = new static($attributes);
+
+        if ($instance->failed()) {
+            throw new \Exception();
+        }
+    }
+
+    public function failed()
+    {
+        return count($this->errors);
     }
 
     public function errors()
